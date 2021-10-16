@@ -1,5 +1,8 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-rooter'
 Plug 'Raimondi/delimitMate' " Auto-close quotes, parenthesis, brackets, etc.
 Plug 'duff/vim-bufonly' " A script to close all buffers but the one that is open
 Plug 'itchyny/lightline.vim' " Adds a statusline
@@ -17,6 +20,7 @@ Plug 'vim-scripts/Tabmerge' " A script to merge tabs
 Plug 'arcticicestudio/nord-vim' " nord color scheme
 Plug 'editorconfig/editorconfig-vim' " editorconfig support
 Plug 'vmchale/dhall-vim' " dhall support
+Plug 'kosayoda/nvim-lightbulb' " VSCode like lightbulb
 
 call plug#end()
 
@@ -47,7 +51,7 @@ set nofoldenable
 " Search settings
 set incsearch
 set smartcase
-set path+=**
+set path+=*│*
 
 " Use relative line numbers
 set number relativenumber
@@ -80,6 +84,9 @@ set undodir=~/.local/share/nvim/undo//
 set backupdir=~/.local/share/nvim/backup//
 set directory=~/.local/share/nvim/swap//
 
+" change the leader key from "\" to "," ("," is also popular)
+let mapleader=";"
+
 " Move split focus with Ctrl + hjkl
 noremap <silent> <c-h> <c-w>h
 noremap <silent> <c-j> <c-w>j
@@ -87,13 +94,6 @@ noremap <silent> <c-k> <c-w>k
 noremap <silent> <c-l> <c-w>l
 
 set nowrap
-
-" Correct filetype for odd extensions
-autocmd BufRead,BufNewFile *.vbproj set filetype=xml
-autocmd BufRead,BufNewFile *.csproj set filetype=xml
-autocmd BufRead,BufNewFile *.fsproj set filetype=xml
-autocmd BufRead,BufNewFile *.cshtml set filetype=html
-autocmd BufRead,BufNewFile *.vbhtml set filetype=html
 
 " Enable ftplugins
 filetype plugin on
@@ -119,6 +119,53 @@ nnoremap <leader>ntv :vsplit<CR><ESC>:terminal<CR>
 " Remove color from sign column
 highlight SignColumn ctermbg=none
 
+" Workaround for already open tabs with fzf.vim
+" https://github.com/junegunn/fzf.vim/issues/435#issuecomment-511039236
+let g:fzf_buffers_jump = 1
+function! s:GotoOrOpen(command, ...)
+  for file in a:000
+    if a:command == 'e'
+      exec 'e ' . file
+    else
+      exec "tab drop " . file
+    endif
+  endfor
+endfunction
+command! -nargs=+ GotoOrOpen call s:GotoOrOpen(<f-args>)
+
+" https://www.chrisatmachine.com/Neovim/08-fzf/
+" fzf keybindings
+"
+
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-t': 'GotoOrOpen tab',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit',
+  \ 'enter': 'GotoOrOpen tab' }
+
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+map <C-f> :Files<CR>
+map <leader>b :Buffers<CR>
+nnoremap <leader>g :Rg<CR>
+nnoremap <C-p> :Tags<CR>
+nnoremap <C-m> :Marks<CR>
+
+
+let g:fzf_tags_command = 'ctags -R'
+" Border color
+let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
+
+let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline'
+let $FZF_DEFAULT_COMMAND="rg --files --hidden"
+
+
 " CoC Key Bindings
 inoremap <silent><expr> <c-space> coc#refresh()
 nmap <silent> <leader>I <Plug>(coc-implementation)
@@ -135,19 +182,17 @@ nmap <silent> <leader>e <Plug>(coc-diagnostic-info)
 nmap <silent> <leader>a <Plug>(coc-codeaction-cursor)
 vmap <silent> <leader>a <Plug>(coc-codeaction-selected)
 nmap <silent> <leader>c <Plug>(coc-codelens-action)
+nmap <silent> <F7> <Plug>(coc-diagnostic-next)
+nmap <silent> <F8> <Plug>(coc-diagnostic-next-error)
 
 " CoC extensions
 let g:coc_global_extensions=[
     \ 'coc-css',
     \ 'coc-eslint',
-    \ 'coc-fsharp',
     \ 'coc-html',
     \ 'coc-json',
     \ 'coc-metals',
-    \ 'coc-omnisharp',
-    \ 'coc-phpls',
     \ 'coc-prettier',
-    \ 'coc-rust-analyzer',
     \ 'coc-sh',
     \ 'coc-tsserver'
 \ ]
