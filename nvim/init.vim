@@ -205,7 +205,8 @@ autocmd Syntax * RainbowParentheses
 set noshowmode
 
 " https://vim.fandom.com/wiki/Mac_OS_X_clipboard_sharing
-set clipboard=unnamed
+" https://stackoverflow.com/a/30691754/12963115
+set clipboard^=unnamed,unnamedplus
 
 " Lightline settings
 " Taken from :help lightline-nice-examples
