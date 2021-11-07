@@ -204,6 +204,8 @@ autocmd Syntax * RainbowParentheses
 " Since lightline shows the mode, we no longer need it shown on the last line
 set noshowmode
 
+" https://vim.fandom.com/wiki/Mac_OS_X_clipboard_sharing
+set clipboard=unnamed
 
 " Lightline settings
 " Taken from :help lightline-nice-examples
