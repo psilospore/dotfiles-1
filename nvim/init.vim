@@ -16,6 +16,7 @@ Plug 'scrooloose/nerdcommenter' " An auto comment or un-commenting command
 Plug 'scrooloose/nerdtree' " A file browser
 Plug 'sheerun/vim-polyglot' " Adds a bunch of syntax highlight suport for many file types
 Plug 'tpope/vim-fugitive' " Git support
+Plug 'tpope/vim-abolish' " Case matching search replace with %S
 Plug 'vim-scripts/Tabmerge' " A script to merge tabs
 Plug 'arcticicestudio/nord-vim' " nord color scheme
 Plug 'editorconfig/editorconfig-vim' " editorconfig support
@@ -93,6 +94,10 @@ noremap <silent> <c-j> <c-w>j
 noremap <silent> <c-k> <c-w>k
 noremap <silent> <c-l> <c-w>l
 
+" Replace confirm highlighted words
+" https://stackoverflow.com/a/676619/12963115
+vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
+
 set nowrap
 
 " Enable ftplugins
@@ -151,14 +156,14 @@ let g:fzf_action = {
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-map <C-f> :Files<CR>
-map <leader>b :Buffers<CR>
-nnoremap <leader>g :Rg<CR>
-nnoremap <C-p> :Tags<CR>
-nnoremap <C-m> :Marks<CR>
+map <C-f> :Files <CR>
+map <leader>b :Buffers <CR>
+nnoremap <leader>g :Rg <CR>
+nnoremap <C-p> :Tags <C-R><C-W><CR>
+nnoremap <C-m> :Marks <CR>
 
 
-let g:fzf_tags_command = 'ctags -R'
+let g:fzf_tags_command = 'haskdogs || ctags -R'
 " Border color
 let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
 
