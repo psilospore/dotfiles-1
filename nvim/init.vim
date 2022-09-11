@@ -22,6 +22,7 @@ Plug 'arcticicestudio/nord-vim' " nord color scheme
 Plug 'editorconfig/editorconfig-vim' " editorconfig support
 Plug 'vmchale/dhall-vim' " dhall support
 Plug 'kosayoda/nvim-lightbulb' " VSCode like lightbulb
+Plug 'vimwiki/vimwiki' 
 
 call plug#end()
 
@@ -100,6 +101,9 @@ vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 
 set nowrap
 
+" https://github.com/vimwiki/vimwiki#prerequisites
+set nocompatible
+
 " Enable ftplugins
 filetype plugin on
 
@@ -159,7 +163,8 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 map <C-f> :Files <CR>
 map <leader>b :Buffers <CR>
 nnoremap <leader>g :Rg <CR>
-nnoremap <C-p> :Tags <C-R><C-W><CR>
+" nnoremap <C-p> :Tags <C-R><C-W><CR>
+nnoremap <C-p> :Tags <CR>
 nnoremap <C-m> :Marks <CR>
 
 
