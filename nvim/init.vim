@@ -23,6 +23,7 @@ Plug 'editorconfig/editorconfig-vim' " editorconfig support
 Plug 'vmchale/dhall-vim' " dhall support
 Plug 'kosayoda/nvim-lightbulb' " VSCode like lightbulb
 Plug 'vimwiki/vimwiki' 
+Plug 'lervag/vimtex'
 
 call plug#end()
 
@@ -54,6 +55,14 @@ set nofoldenable
 set incsearch
 set smartcase
 set path+=*│*
+
+" Latex https://castel.dev/post/lecture-notes-1/
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
+
 
 " Use relative line numbers
 set number relativenumber
@@ -217,6 +226,9 @@ set noshowmode
 " https://vim.fandom.com/wiki/Mac_OS_X_clipboard_sharing
 " https://stackoverflow.com/a/30691754/12963115
 set clipboard^=unnamed,unnamedplus
+
+" Show hidden files .
+let NERDTreeShowHidden=1
 
 " Lightline settings
 " Taken from :help lightline-nice-examples
