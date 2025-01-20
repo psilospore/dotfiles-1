@@ -1,0 +1,3 @@
+[submodule "doom/darais-unicode-input"]
+	path = doom/darais-unicode-input
+	url = https://github.com/davdar/darais-unicode-input.git

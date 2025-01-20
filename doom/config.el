@@ -21,8 +21,8 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'medium)
-      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'medium)
+;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -104,3 +104,10 @@
 (map! (:map 'coq-mode-map "<mouse-9>" #'proof-retract-until-point-interactive))
 (map! (:map 'coq-mode-map "<C-mouse-8>" #'proof-assert-until-point-interactive))
 (map! (:map 'coq-mode-map "RET" #'newline-and-indent))
+
+;; Load
+(load-file "~/.config/doom/darais-unicode-input/unicode.el")
+
+(map! :leader
+      :desc "Toggle David's Unicode Input Mode"
+      "t u" #'unicode-input-mode)
