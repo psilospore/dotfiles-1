@@ -32,3 +32,5 @@
 # vim: set filetype=gitconfig:
 [push]
 	autoSetupRemote = true
+[core]
+	editor = vim
