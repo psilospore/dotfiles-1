@@ -21,8 +21,12 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'medium)
+;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'medium)
 ;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+
+(setq doom-font (font-spec :family "Fira Code" :size 14)
+      doom-unicode-font (font-spec :family "Noto Sans Math" :size 13))
+
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -111,3 +115,10 @@
 (map! :leader
       :desc "Toggle David's Unicode Input Mode"
       "t u" #'unicode-input-mode)
+
+(after! lsp-haskell
+  (setq lsp-haskell-formatting-provider "fourmolu"))
+
+(map! :leader
+      :desc "LSP: Search file symbols"
+      "c h" #'consult-lsp-file-symbols)

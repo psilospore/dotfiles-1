@@ -11,3 +11,5 @@ ln -sfn "$(pwd)/git/config" "$HOME/.gitconfig"
 
 ln -sfn "$(pwd)/nvim" "$CONFIG_HOME/nvim"
 ln -sfn "$(pwd)/doom" "$CONFIG_HOME/doom"
+
+ln -sfn "$(pwd)/ghci" "$HOME/.ghci"
